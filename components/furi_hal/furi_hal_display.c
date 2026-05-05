@@ -183,7 +183,7 @@ void furi_hal_display_init(void) {
     gpio_set_level((gpio_num_t)gpio_lcd_rst.pin, 1);   /* release reset */
     vTaskDelay(pdMS_TO_TICKS(120));                     /* ST7789 needs ≥5ms, use 120ms to be safe */
 
-ESP_ERROR_CHECK(esp_lcd_new_panel_ili9341(io_handle, &panel_config, &panel_handle));
+    ESP_ERROR_CHECK(esp_lcd_new_panel_ili9341(io_handle, &panel_config, &panel_handle));
 
     
     /* Reset and initialize (the esp_lcd driver reset is redundant now but harmless) */
