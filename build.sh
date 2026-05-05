@@ -16,16 +16,19 @@ declare -A TARGETS=(
     ["esp32s3"]="esp32s3"
     ["waveshare_c6"]="esp32c6"
     ["t_embed"]="esp32s3"
+    ["6btn"]="esp32s3"
 )
 declare -A NAMES=(
     ["esp32s3"]="esp32s3_generic"
     ["waveshare_c6"]="waveshare_c6_1.9"
     ["t_embed"]="lilygo_t_embed_cc1101"
+    ["6btn"]="esp32s3_6buttons"
 )
 declare -A DIRS=(
     ["esp32s3"]="build_s3"
     ["waveshare_c6"]="build_waveshare_c6"
     ["t_embed"]="build_t_embed"
+    ["6btn"]="build_6btn"
 )
 
 usage() {
