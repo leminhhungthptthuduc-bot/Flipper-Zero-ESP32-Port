@@ -25,7 +25,7 @@
 #define BOARD_PIN_BTN_RIGHT     39
 #define BOARD_PIN_BTN_OK        0
 #define BOARD_PIN_BTN_BACK      4
-#define BOARD_PIN_BATTERY_ADC   2
+//#define BOARD_PIN_BATTERY_ADC   2
 
 /* ---- LCD Pins (ILI9341 via SPI) ---- */
 #define BOARD_PIN_LCD_MOSI      17
