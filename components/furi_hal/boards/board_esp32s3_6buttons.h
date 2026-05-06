@@ -78,7 +78,9 @@
 #define BOARD_PIN_CC1101_MOSI   12
 #define BOARD_PIN_CC1101_GDO0   9
 #define BOARD_PIN_CC1101_GDO2   10
-#define BOARD_CC1101_SPI_SHARED 0       /* CC1101 on its own SPI bus */
+#define BOARD_CC1101_SPI_HOST   SPI3_HOST
+#define BOARD_CC1101_SPI_SHARED 0
+
 
 /* ---- NRF24L01 ---- */
 #define BOARD_PIN_NRF24_SCK     13
