@@ -43,7 +43,7 @@ APPS = [
     "nfc",
     "infrared",
     "lfrfid",
-    "wifi",
+    "wlan",
     "nrf24",
     "ble_spam",
     "js_app",
