@@ -3,7 +3,7 @@ index 4dcbbda..faa88a2 100644
 --- a/src/core/main_menu.cpp
 +++ b/src/core/main_menu.cpp
 @@ -30,6 +30,7 @@ MainMenu::MainMenu() {
-         &othersMenu,
+         &appsMenu,
  #endif
          &configMenu,
 +        &flipperOsMenu, // multi-boot add-on (patchBruce.py)
