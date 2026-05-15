@@ -8,7 +8,7 @@ App(
         "gui",
         "dialogs",
     ],
-    icon="A_Plugins_14",
+   // icon="A_Plugins_14",
     stack_size=2 * 1024,
     order=95,
 )
