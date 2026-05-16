@@ -106,9 +106,7 @@ static bool wlan_handshake_view_input_callback(InputEvent* event, void* context)
             return true;
         }
     }
-    // Up/Down: nur im Channel-Mode relevant. Die Scene mappt sie auf Channel-Up/Down,
-    // wenn app->channel_mode_active gesetzt ist.
-   if(event->type == InputTypeShort) {
+    if(event->type == InputTypeShort) {
         if(event->key == InputKeyUp || event->key == InputKeyLeft) {
             view_dispatcher_send_custom_event(vd, WlanAppCustomEventHandshakeChannelUp);
             return true;
