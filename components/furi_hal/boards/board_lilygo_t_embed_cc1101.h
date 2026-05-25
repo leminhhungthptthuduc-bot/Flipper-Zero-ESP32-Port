@@ -45,6 +45,11 @@
 #define BOARD_LCD_FG_COLOR      0xFFFF  /* Trắng */
 #define BOARD_LCD_BG_COLOR      0x0000  /* Đen */
 
+/* ---- GIẢ LẬP HỆ THỐNG ENCODER / INPUT (Sửa lỗi target_input.c) ---- */
+#define BOARD_PIN_ENCODER_A     UINT16_MAX
+#define BOARD_PIN_ENCODER_B     UINT16_MAX
+#define BOARD_PIN_ENCODER_BTN   UINT16_MAX
+
 /* ---- GIẢ LẬP HỆ THỐNG CHÂN SUB-GHZ (Sửa lỗi furi_hal_resources.c) ---- */
 #define BOARD_PIN_CC1101_CSN    UINT16_MAX
 #define BOARD_PIN_CC1101_SCK    UINT16_MAX
@@ -110,7 +115,6 @@
 /* ---- CẤU HÌNH QUẢN LÝ NGUỒN PIN GIẢ LẬP (Sửa lỗi furi_hal_power.c) ---- */
 #define BQ27220_ADDR            0x55
 #define BQ_I2C_PORT             I2C_NUM_0
-/* Tránh redefine với file gốc, firmware gốc tự gán cứng chân sda/scl cho bq nếu thiếu */
 #define HIGH_DRAIN_CURRENT_THRESHOLD (-200)
 #define FURI_HAL_POWER_VIRTUAL_CAPACITY_MAH     (1300U)
 #define BQ25896_CHARGE_LIMIT    1280
