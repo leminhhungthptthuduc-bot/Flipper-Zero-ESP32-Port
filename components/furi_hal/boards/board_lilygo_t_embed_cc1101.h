@@ -17,7 +17,7 @@
 #define BOARD_PIN_BUTTON_KEY    UINT16_MAX
 #define BOARD_PIN_BATTERY_ADC   UINT16_MAX
 
-/* ---- LCD Pins (Cấu hình theo sơ đồ bạn nối) ---- */
+/* ---- LCD Pins (Cấu hình chân thực tế nối màn hình của bạn) ---- */
 #define BOARD_PIN_LCD_SCLK      18  /* SCL */
 #define BOARD_PIN_LCD_MOSI      17  /* SDA */
 #define BOARD_PIN_LCD_DC        15  /* DC */
@@ -45,7 +45,7 @@
 #define BOARD_LCD_FG_COLOR      0xFFFF  /* Trắng */
 #define BOARD_LCD_BG_COLOR      0x0000  /* Đen */
 
-/* ---- Vô hiệu hóa và giả lập hệ thống chân CC1101 (Sửa lỗi furi_hal_resources.c) ---- */
+/* ---- GIẢ LẬP HỆ THỐNG CHÂN SUB-GHZ (Sửa lỗi furi_hal_resources.c) ---- */
 #define BOARD_PIN_CC1101_CSN    UINT16_MAX
 #define BOARD_PIN_CC1101_SCK    UINT16_MAX
 #define BOARD_PIN_CC1101_MISO   UINT16_MAX
@@ -53,33 +53,40 @@
 #define BOARD_PIN_CC1101_GDO0   UINT16_MAX
 #define BOARD_PIN_CC1101_GDO2   UINT16_MAX
 
-/* ---- Vô hiệu hóa toàn bộ các ngoại vi khác để tránh xung đột chân ---- */
+/* ---- GIẢ LẬP HỆ THỐNG ĐÈN LED RGB & BACKLIGHT phụ (Sửa lỗi furi_hal_light.c) ---- */
+#define BOARD_PIN_WS2812_DATA   UINT16_MAX
+#define BOARD_WS2812_LED_COUNT  0
+#define BOARD_PIN_BACKLIGHT     UINT16_MAX
+
+/* ---- GIẢ LẬP HỆ THỐNG LOA/BUZZER (Phòng ngừa lỗi furi_hal_speaker.c) ---- */
+#define BOARD_PIN_SPEAKER_BCLK  UINT16_MAX
+#define BOARD_PIN_SPEAKER_WCLK  UINT16_MAX
+#define BOARD_PIN_SPEAKER_DOUT  UINT16_MAX
+#define BOARD_PIN_SPEAKER       UINT16_MAX
+
+/* ---- GIẢ LẬP HỆ THỐNG HỒNG NGOẠI IR (Phòng ngừa lỗi furi_hal_ir.c) ---- */
+#define BOARD_PIN_IR_TX         UINT16_MAX
+#define BOARD_PIN_IR_RX         UINT16_MAX
+
+/* ---- GIẢ LẬP HỆ THỐNG THẺ NHỚ SD (Phòng ngừa lỗi cấu hình SD) ---- */
 #define BOARD_PIN_SD_CS         UINT16_MAX
 #define BOARD_PIN_SD_MISO       UINT16_MAX
+#define BOARD_PIN_SD_MOSI       UINT16_MAX
+#define BOARD_PIN_SD_SCK        UINT16_MAX
 
+/* ---- VÔ HIỆU HÓA CÁC NGOẠI VI KHÁC ĐỂ TRÁNH XUNG ĐỘT ---- */
 #define BOARD_PIN_TOUCH_SCL     UINT16_MAX
 #define BOARD_PIN_TOUCH_SDA     UINT16_MAX
 #define BOARD_PIN_TOUCH_RST     UINT16_MAX
 #define BOARD_PIN_TOUCH_INT     UINT16_MAX
-
 #define BOARD_PIN_NRF24_CSN     UINT16_MAX
 #define BOARD_PIN_PWR_EN        UINT16_MAX
-
-#define BOARD_PIN_IR_TX         UINT16_MAX
-#define BOARD_PIN_IR_RX         UINT16_MAX
-
 #define BOARD_PIN_NFC_SCL       UINT16_MAX
 #define BOARD_PIN_NFC_SDA       UINT16_MAX
-
-#define BOARD_PIN_SPEAKER_BCLK  UINT16_MAX
-#define BOARD_PIN_SPEAKER_WCLK  UINT16_MAX
-#define BOARD_PIN_SPEAKER_DOUT  UINT16_MAX
-
-#define BOARD_PIN_WS2812_DATA   UINT16_MAX
 #define BOARD_PIN_MIC_DATA      UINT16_MAX
 #define BOARD_PIN_MIC_CLK       UINT16_MAX
 
-/* ---- Features Flags ---- */
+/* ---- FEATURES FLAGS (Tắt hết tính năng thừa, chỉ giữ lại màn hình) ---- */
 #define BOARD_HAS_TOUCH         0
 #define BOARD_HAS_ENCODER       0
 #define BOARD_HAS_SD_CARD       0
@@ -94,7 +101,7 @@
 #define BOARD_HAS_SUBGHZ        0
 #define BOARD_HAS_MIC           0
 
-/* ---- Các cấu hình quản lý nguồn pin giả lập ---- */
+/* ---- CẤU HÌNH QUẢN LÝ NGUỒN PIN GIẢ LẬP (Sửa lỗi furi_hal_power.c) ---- */
 #define BQ27220_ADDR            0x55
 #define BQ_I2C_PORT             I2C_NUM_0
 #define BQ_I2C_SDA              UINT16_MAX
