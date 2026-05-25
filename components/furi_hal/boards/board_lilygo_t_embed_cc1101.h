@@ -1,9 +1,9 @@
 /**
- * @file board_custom_st7789_114.h
- * Board definition: Custom ESP32-S3 with 1.14 inch ST7789 Display
+ * @file board_lilygo_t_embed_cc1101.h
+ * Board definition: LilyGo T-Embed CC1101 (Modified for Custom 1.14" Display)
  *
- * MCU:      ESP32-S3
- * Display:  ST7789 240x135 RGB565 via SPI
+ * MCU:      ESP32-S3 (dual-core Xtensa LX7)
+ * Display:  ST7789 240x135 RGB565 via SPI (Custom Pins)
  */
 
 #pragma once
@@ -12,22 +12,22 @@
 #define BOARD_NAME        "ESP32-S3 Custom 1.14 LCD"
 #define BOARD_TARGET      "esp32s3"
 
-/* ---- Hardware Button / Encoder Pins (Tạm thời bỏ qua) ---- */
+/* ---- Hardware Button / Encoder Pins ---- */
 #define BOARD_PIN_BUTTON_BOOT   UINT16_MAX
 #define BOARD_PIN_BUTTON_KEY    UINT16_MAX
 #define BOARD_PIN_BATTERY_ADC   UINT16_MAX
 
-/* ---- LCD Pins (Cấu hình chính xác theo sơ đồ bạn nối) ---- */
-#define BOARD_PIN_LCD_SCLK      18  /* SCL nối với chân 18 */
-#define BOARD_PIN_LCD_MOSI      17  /* SDA nối với chân 17 */
-#define BOARD_PIN_LCD_DC        15  /* DC nối với chân 15 */
-#define BOARD_PIN_LCD_CS        7   /* CS nối với chân 7 */
-#define BOARD_PIN_LCD_RST       16  /* RES (Reset) nối với chân 16 */
-#define BOARD_PIN_LCD_BL        6   /* BLK (Backlight) nối với chân 6 */
+/* ---- LCD Pins (Cấu hình theo sơ đồ bạn nối) ---- */
+#define BOARD_PIN_LCD_SCLK      18  /* SCL */
+#define BOARD_PIN_LCD_MOSI      17  /* SDA */
+#define BOARD_PIN_LCD_DC        15  /* DC */
+#define BOARD_PIN_LCD_CS        7   /* CS */
+#define BOARD_PIN_LCD_RST       16  /* RES */
+#define BOARD_PIN_LCD_BL        6   /* BLK */
 
 /* ---- LCD Display Configuration (Tối ưu cho màn 1.14 inch ST7789) ---- */
-#define BOARD_LCD_H_RES         240      /* Độ phân giải ngang màn 1.14" */
-#define BOARD_LCD_V_RES         135      /* Độ phân giải dọc màn 1.14" */
+#define BOARD_LCD_H_RES         240      
+#define BOARD_LCD_V_RES         135      
 #define BOARD_LCD_SPI_HOST      SPI2_HOST
 #define BOARD_LCD_SPI_FREQ_HZ   (40 * 1000 * 1000)
 #define BOARD_LCD_CMD_BITS      8
@@ -35,15 +35,15 @@
 #define BOARD_LCD_SWAP_XY       true
 #define BOARD_LCD_MIRROR_X      false
 #define BOARD_LCD_MIRROR_Y      false    
-#define BOARD_LCD_INVERT_COLOR  true     /* ST7789 thường cần bật đảo màu để lên đúng màu gốc */
-#define BOARD_LCD_GAP_X         40       /* Màn 1.14" ST7789 thường có vùng lệch (Offset) X */
-#define BOARD_LCD_GAP_Y         53       /* Vùng lệch (Offset) Y giúp hiển thị không bị sọc/lệch hình */
-#define BOARD_LCD_BL_ACTIVE_LOW false    /* Backlight mức cao (HIGH) là sáng */
+#define BOARD_LCD_INVERT_COLOR  true     
+#define BOARD_LCD_GAP_X         40       
+#define BOARD_LCD_GAP_Y         53       
+#define BOARD_LCD_BL_ACTIVE_LOW false    
 #define BOARD_LCD_COLOR_ORDER_BGR false 
 
-/* Màu sắc hiển thị cơ bản để test */
-#define BOARD_LCD_FG_COLOR      0xFFFF  /* Màu chữ/nền trước: Trắng */
-#define BOARD_LCD_BG_COLOR      0x0000  /* Màu nền sau: Đen */
+/* Màu sắc hiển thị cơ bản */
+#define BOARD_LCD_FG_COLOR      0xFFFF  /* Trắng */
+#define BOARD_LCD_BG_COLOR      0x0000  /* Đen */
 
 /* ---- Vô hiệu hóa toàn bộ các ngoại vi khác để tránh xung đột chân ---- */
 #define BOARD_PIN_SD_CS         UINT16_MAX
@@ -86,3 +86,12 @@
 #define BOARD_HAS_NFC           0
 #define BOARD_HAS_SUBGHZ         0
 #define BOARD_HAS_MIC           0
+
+/* ---- BẮT BUỘC: Các cấu hình quản lý nguồn pin giả lập để furi_hal_power.c không bị lỗi ---- */
+#define BQ27220_ADDR            0x55
+#define BQ_I2C_PORT             I2C_NUM_0
+#define BQ_I2C_SDA              UINT16_MAX
+#define BQ_I2C_SCL              UINT16_MAX
+#define HIGH_DRAIN_CURRENT_THRESHOLD (-200)
+#define FURI_HAL_POWER_VIRTUAL_CAPACITY_MAH     (1300U)
+#define BQ25896_CHARGE_LIMIT    1280
