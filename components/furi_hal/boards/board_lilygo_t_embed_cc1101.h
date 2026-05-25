@@ -45,6 +45,14 @@
 #define BOARD_LCD_FG_COLOR      0xFFFF  /* Trắng */
 #define BOARD_LCD_BG_COLOR      0x0000  /* Đen */
 
+/* ---- Vô hiệu hóa và giả lập hệ thống chân CC1101 (Sửa lỗi furi_hal_resources.c) ---- */
+#define BOARD_PIN_CC1101_CSN    UINT16_MAX
+#define BOARD_PIN_CC1101_SCK    UINT16_MAX
+#define BOARD_PIN_CC1101_MISO   UINT16_MAX
+#define BOARD_PIN_CC1101_MOSI   UINT16_MAX
+#define BOARD_PIN_CC1101_GDO0   UINT16_MAX
+#define BOARD_PIN_CC1101_GDO2   UINT16_MAX
+
 /* ---- Vô hiệu hóa toàn bộ các ngoại vi khác để tránh xung đột chân ---- */
 #define BOARD_PIN_SD_CS         UINT16_MAX
 #define BOARD_PIN_SD_MISO       UINT16_MAX
@@ -54,7 +62,6 @@
 #define BOARD_PIN_TOUCH_RST     UINT16_MAX
 #define BOARD_PIN_TOUCH_INT     UINT16_MAX
 
-#define BOARD_PIN_CC1101_CSN    UINT16_MAX
 #define BOARD_PIN_NRF24_CSN     UINT16_MAX
 #define BOARD_PIN_PWR_EN        UINT16_MAX
 
@@ -84,10 +91,10 @@
 #define BOARD_HAS_IBUTTON       0
 #define BOARD_HAS_RFID          0
 #define BOARD_HAS_NFC           0
-#define BOARD_HAS_SUBGHZ         0
+#define BOARD_HAS_SUBGHZ        0
 #define BOARD_HAS_MIC           0
 
-/* ---- BẮT BUỘC: Các cấu hình quản lý nguồn pin giả lập để furi_hal_power.c không bị lỗi ---- */
+/* ---- Các cấu hình quản lý nguồn pin giả lập ---- */
 #define BQ27220_ADDR            0x55
 #define BQ_I2C_PORT             I2C_NUM_0
 #define BQ_I2C_SDA              UINT16_MAX
