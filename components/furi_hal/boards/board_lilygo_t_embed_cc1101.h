@@ -31,7 +31,7 @@
 #define BOARD_LCD_SPI_FREQ_HZ   (20 * 1000 * 1000) 
 #define BOARD_LCD_CMD_BITS      8
 #define BOARD_LCD_PARAM_BITS    8
-#define BOARD_LCD_SWAP_XY       false
+#define BOARD_LCD_SWAP_XY       true
 #define BOARD_LCD_MIRROR_X      true
 #define BOARD_LCD_MIRROR_Y      false    
 #define BOARD_LCD_INVERT_COLOR  false    /* Giữ true để tránh ngược dải màu đồ họa */
