@@ -37,7 +37,7 @@
 #define BOARD_LCD_INVERT_COLOR  true     
 #define BOARD_LCD_GAP_X         40       /* Khớp tọa độ căn giữa màn hình 1.14" */
 #define BOARD_LCD_GAP_Y         53       /* Khớp tọa độ tránh lệch sọc màn hình 1.14" */
-#define BOARD_LCD_BL_ACTIVE_LOW true     /* Đặt TRUE để ép chân IO6 xuất điện bật đèn nền màn rời */
+#define BOARD_LCD_BL_ACTIVE_LOW false     /* Đặt TRUE để ép chân IO6 xuất điện bật đèn nền màn rời */
 #define BOARD_LCD_COLOR_ORDER_BGR false 
 
 /* Màu sắc hiển thị cơ bản */
