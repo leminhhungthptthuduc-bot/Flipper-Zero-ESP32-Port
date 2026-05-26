@@ -1,8 +1,7 @@
 /**
  * @file board_lilygo_t_embed_cc1101.h
- * Board definition: LilyGo T-Embed CC1101 (Modified for Custom 1.14" Display)
- *
- * MCU:      ESP32-S3 (dual-core Xtensa LX7)
+ * Board definition: LilyGo T-Embed CC1101 (Clean Minimalist for Custom 1.14" ST7789)
+ * * MCU:      ESP32-S3 (dual-core Xtensa LX7)
  * Display:  ST7789 240x135 RGB565 via SPI (Custom Pins)
  */
 
@@ -25,20 +24,20 @@
 #define BOARD_PIN_LCD_RST       16  /* RES */
 #define BOARD_PIN_LCD_BL        6   /* BLK */
 
-/* ---- LCD Display Configuration (Tối ưu cho màn 1.14 inch ST7789) ---- */
+/* ---- LCD Display Configuration (Tối ưu hóa cho màn 1.14 inch ST7789 rời) ---- */
 #define BOARD_LCD_H_RES         240      
 #define BOARD_LCD_V_RES         135      
 #define BOARD_LCD_SPI_HOST      SPI2_HOST
-#define BOARD_LCD_SPI_FREQ_HZ   (30 * 1000 * 1000)
+#define BOARD_LCD_SPI_FREQ_HZ   (20 * 1000 * 1000) /* Hạ xuống 20MHz như Bruce để tín hiệu màn rời ổn định */
 #define BOARD_LCD_CMD_BITS      8
 #define BOARD_LCD_PARAM_BITS    8
 #define BOARD_LCD_SWAP_XY       true
 #define BOARD_LCD_MIRROR_X      true
 #define BOARD_LCD_MIRROR_Y      false    
 #define BOARD_LCD_INVERT_COLOR  true     
-#define BOARD_LCD_GAP_X         0       
-#define BOARD_LCD_GAP_Y         0       
-#define BOARD_LCD_BL_ACTIVE_LOW false    
+#define BOARD_LCD_GAP_X         40       /* Sửa thành 40 để đưa nội dung vào giữa màn hình 1.14" */
+#define BOARD_LCD_GAP_Y         53       /* Sửa thành 53 để tránh lệch sọc màn hình 1.14" */
+#define BOARD_LCD_BL_ACTIVE_LOW true     /* Đổi thành true để kích sáng đèn nền cho module rời */
 #define BOARD_LCD_COLOR_ORDER_BGR false 
 
 /* Màu sắc hiển thị cơ bản */
@@ -46,22 +45,22 @@
 #define BOARD_LCD_BG_COLOR      0x0000  /* Đen */
 
 /* ---- GIẢ LẬP HỆ THỐNG ENCODER / INPUT ---- */
-#define BOARD_PIN_ENCODER_A     UINT16_MAX
-#define BOARD_PIN_ENCODER_B     UINT16_MAX
-#define BOARD_PIN_ENCODER_BTN   UINT16_MAX
+#define BOARD_PIN_ENCODER_A      UINT16_MAX
+#define BOARD_PIN_ENCODER_B      UINT16_MAX
+#define BOARD_PIN_ENCODER_BTN    UINT16_MAX
 
 /* ---- GIẢ LẬP HỆ THỐNG CHÂN SUB-GHZ ---- */
-#define BOARD_PIN_CC1101_CSN    UINT16_MAX
-#define BOARD_PIN_CC1101_SCK    UINT16_MAX
-#define BOARD_PIN_CC1101_MISO   UINT16_MAX
-#define BOARD_PIN_CC1101_MOSI   UINT16_MAX
-#define BOARD_PIN_CC1101_GDO0   UINT16_MAX
-#define BOARD_PIN_CC1101_GDO2   UINT16_MAX
+#define BOARD_PIN_CC1101_CSN     UINT16_MAX
+#define BOARD_PIN_CC1101_SCK     UINT16_MAX
+#define BOARD_PIN_CC1101_MISO    UINT16_MAX
+#define BOARD_PIN_CC1101_MOSI    UINT16_MAX
+#define BOARD_PIN_CC1101_GDO0    UINT16_MAX
+#define BOARD_PIN_CC1101_GDO2    UINT16_MAX
 
 /* ---- GIẢ LẬP HỆ THỐNG ĐÈN LED RGB & BACKLIGHT ---- */
-#define BOARD_PIN_WS2812_DATA   UINT16_MAX
-#define BOARD_WS2812_LED_COUNT  0
-#define BOARD_PIN_BACKLIGHT     UINT16_MAX
+#define BOARD_PIN_WS2812_DATA    UINT16_MAX
+#define BOARD_WS2812_LED_COUNT   0
+#define BOARD_PIN_BACKLIGHT      UINT16_MAX
 
 /* ---- GIẢ LẬP HỆ THỐNG CẢM ỨNG I2C TOUCH ---- */
 #define BOARD_TOUCH_I2C_PORT     I2C_NUM_0
@@ -77,7 +76,7 @@
 #define BOARD_PIN_SPEAKER_BCLK  UINT16_MAX
 #define BOARD_PIN_SPEAKER_WCLK  UINT16_MAX
 #define BOARD_PIN_SPEAKER_DOUT  UINT16_MAX
-#define BOARD_PIN_SPEAKER       UINT16_MAX
+#define BOARD_PIN_SPEAKER        UINT16_MAX
 
 /* ---- GIẢ LẬP HỆ THỐNG HỒNG NGOẠI IR ---- */
 #define BOARD_PIN_IR_TX         UINT16_MAX
@@ -85,14 +84,14 @@
 
 /* ---- GIẢ LẬP HỆ THỐNG THẺ NHỚ SD ---- */
 #define BOARD_PIN_SD_CS         UINT16_MAX
-#define BOARD_PIN_SD_MISO       UINT16_MAX
-#define BOARD_PIN_SD_MOSI       UINT16_MAX
-#define BOARD_PIN_SD_SCK        UINT16_MAX
+#define BOARD_PIN_SD_MISO        UINT16_MAX
+#define BOARD_PIN_SD_MOSI        UINT16_MAX
+#define BOARD_PIN_SD_SCK         UINT16_MAX
 
 /* ---- VÔ HIỆU HÓA CÁC CHÂN NGOẠI VI KHÁC ---- */
 #define BOARD_PIN_NRF24_CE      UINT16_MAX
 #define BOARD_PIN_NRF24_CSN     UINT16_MAX
-#define BOARD_PIN_PWR_EN        UINT16_MAX
+#define BOARD_PIN_PWR_EN        15       /* Sửa thành chân 15 để hệ thống Furi OS kiểm tra nguồn thành công, tránh crash */
 #define BOARD_PIN_NFC_SCL       UINT16_MAX
 #define BOARD_PIN_NFC_SDA       UINT16_MAX
 #define BOARD_PIN_MIC_DATA      UINT16_MAX
