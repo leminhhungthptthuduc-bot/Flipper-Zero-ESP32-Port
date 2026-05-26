@@ -1,6 +1,6 @@
 /**
  * @file furi_hal_gpio.c
- * GPIO HAL for ESP32 - Bản tích hợp HARDWARE TEST BUTTON qua Đèn nền LCD (IO6)
+ * GPIO HAL for ESP32
  */
 
 #include "furi_hal_gpio.h"
@@ -95,23 +95,14 @@ void furi_hal_gpio_init_ex(
 
     if(!furi_hal_gpio_is_valid(gpio)) return;
 
-    // Bộ lọc nhận diện 6 chân nút bấm của bạn
-    bool is_custom_button = (gpio->pin == 41 || gpio->pin == 40 || gpio->pin == 38 || gpio->pin == 39 || gpio->pin == 0 || gpio->pin == 4);
-
     gpio_config_t config = {
         .pin_bit_mask = 1ULL << gpio->pin,
         .mode = furi_hal_gpio_convert_mode(mode),
-        .pull_up_en = is_custom_button ? false : (pull == GpioPullUp),
-        .pull_down_en = is_custom_button ? false : (pull == GpioPullDown),
+        .pull_up_en = pull == GpioPullUp,
+        .pull_down_en = pull == GpioPullDown,
         .intr_type = furi_hal_gpio_convert_interrupt(mode),
     };
     gpio_config(&config);
-    
-    // Nếu là chân nút bấm, cấu hình thêm chân Đèn nền LCD (IO6) làm Output để test
-    if(is_custom_button) {
-        gpio_reset_pin(GPIO_NUM_6);
-        gpio_set_direction(GPIO_NUM_6, GPIO_MODE_OUTPUT);
-    }
 }
 
 void furi_hal_gpio_add_int_callback(const GpioPin* gpio, GpioExtiCallback cb, void* ctx) {
@@ -156,19 +147,5 @@ void furi_hal_gpio_write(const GpioPin* gpio, const bool state) {
 
 bool furi_hal_gpio_read(const GpioPin* gpio) {
     if(!furi_hal_gpio_is_valid(gpio)) return false;
-
-    // Đọc trạng thái thực tế từ chân chip
-    int level = gpio_get_level((gpio_num_t)gpio->pin);
-
-    // 🔴 ĐOẠN CODE TEST PHẦN CỨNG TRỰC TIẾP:
-    // Nếu hệ thống quét trúng 1 trong 6 nút của bạn VÀ nút đó đang ĐƯỢC BẤM (mức 0)
-    if ((gpio->pin == 41 || gpio->pin == 40 || gpio->pin == 38 || gpio->pin == 39 || gpio->pin == 0 || gpio->pin == 4) && (level == 0)) {
-        // TẮT ngay đèn nền màn hình (IO6) để báo hiệu cho bạn biết chip ĐÃ NHẬN nút!
-        gpio_set_level(GPIO_NUM_6, 0); 
-    } else {
-        // Bình thường giữ đèn nền SÁNG (mức 1)
-        gpio_set_level(GPIO_NUM_6, 1);
-    }
-
-    return level != 0;
+    return gpio_get_level((gpio_num_t)gpio->pin) != 0;
 }
