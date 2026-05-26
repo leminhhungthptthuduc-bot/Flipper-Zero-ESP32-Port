@@ -31,12 +31,12 @@
 #define BOARD_LCD_SPI_FREQ_HZ   (20 * 1000 * 1000) 
 #define BOARD_LCD_CMD_BITS      8
 #define BOARD_LCD_PARAM_BITS    8
-#define BOARD_LCD_SWAP_XY       false
+#define BOARD_LCD_SWAP_XY       true
 #define BOARD_LCD_MIRROR_X      false
-#define BOARD_LCD_MIRROR_Y      false    
-#define BOARD_LCD_INVERT_COLOR  true    /* Giữ true để tránh ngược dải màu đồ họa */
-#define BOARD_LCD_GAP_X         0       
-#define BOARD_LCD_GAP_Y         0       
+#define BOARD_LCD_MIRROR_Y      true    
+#define BOARD_LCD_INVERT_COLOR  false    /* Giữ true để tránh ngược dải màu đồ họa */
+#define BOARD_LCD_GAP_X         40       
+#define BOARD_LCD_GAP_Y         53       
 #define BOARD_LCD_BL_ACTIVE_LOW false    /* Xuất lệnh bật đèn nền màn hình */
 #define BOARD_LCD_COLOR_ORDER_BGR true 
 
