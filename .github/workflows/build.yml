@@ -17,7 +17,7 @@ jobs:
       matrix:
         board:
           - name: esp_s3
-            script_key: esp_s3
+            script_key: esp32s3
             build_dir: build_esp_s3
             artifact_name: flipper-esp32s3-custom
             chip: esp32s3
