@@ -45,12 +45,12 @@
 #define BOARD_LCD_FG_COLOR      0xFFFF  /* Trắng */
 #define BOARD_LCD_BG_COLOR      0x0000  /* Đen */
 
-/* ---- GIẢ LẬP HỆ THỐNG ENCODER / INPUT (Sửa lỗi target_input.c) ---- */
+/* ---- GIẢ LẬP HỆ THỐNG ENCODER / INPUT ---- */
 #define BOARD_PIN_ENCODER_A     UINT16_MAX
 #define BOARD_PIN_ENCODER_B     UINT16_MAX
 #define BOARD_PIN_ENCODER_BTN   UINT16_MAX
 
-/* ---- GIẢ LẬP HỆ THỐNG CHÂN SUB-GHZ (Sửa lỗi furi_hal_resources.c) ---- */
+/* ---- GIẢ LẬP HỆ THỐNG CHÂN SUB-GHZ ---- */
 #define BOARD_PIN_CC1101_CSN    UINT16_MAX
 #define BOARD_PIN_CC1101_SCK    UINT16_MAX
 #define BOARD_PIN_CC1101_MISO   UINT16_MAX
@@ -58,12 +58,12 @@
 #define BOARD_PIN_CC1101_GDO0   UINT16_MAX
 #define BOARD_PIN_CC1101_GDO2   UINT16_MAX
 
-/* ---- GIẢ LẬP HỆ THỐNG ĐÈN LED RGB & BACKLIGHT (Sửa lỗi furi_hal_light.c) ---- */
+/* ---- GIẢ LẬP HỆ THỐNG ĐÈN LED RGB & BACKLIGHT ---- */
 #define BOARD_PIN_WS2812_DATA   UINT16_MAX
 #define BOARD_WS2812_LED_COUNT  0
 #define BOARD_PIN_BACKLIGHT     UINT16_MAX
 
-/* ---- GIẢ LẬP HỆ THỐNG CẢM ỨNG I2C TOUCH (Sửa lỗi furi_hal_touch.c) ---- */
+/* ---- GIẢ LẬP HỆ THỐNG CẢM ỨNG I2C TOUCH ---- */
 #define BOARD_TOUCH_I2C_PORT     I2C_NUM_0
 #define BOARD_TOUCH_I2C_ADDR     0x00
 #define BOARD_TOUCH_I2C_FREQ_HZ  400000
@@ -73,13 +73,13 @@
 #define BOARD_PIN_TOUCH_RST      UINT16_MAX
 #define BOARD_PIN_TOUCH_INT      UINT16_MAX
 
-/* ---- GIẢ LẬP HỆ THỐNG LOA/BUZZER (Phòng ngừa furi_hal_speaker.c) ---- */
+/* ---- GIẢ LẬP HỆ THỐNG LOA/BUZZER ---- */
 #define BOARD_PIN_SPEAKER_BCLK  UINT16_MAX
 #define BOARD_PIN_SPEAKER_WCLK  UINT16_MAX
 #define BOARD_PIN_SPEAKER_DOUT  UINT16_MAX
 #define BOARD_PIN_SPEAKER       UINT16_MAX
 
-/* ---- GIẢ LẬP HỆ THỐNG HỒNG NGOẠI IR (Phòng ngừa furi_hal_ir.c) ---- */
+/* ---- GIẢ LẬP HỆ THỐNG HỒNG NGOẠI IR ---- */
 #define BOARD_PIN_IR_TX         UINT16_MAX
 #define BOARD_PIN_IR_RX         UINT16_MAX
 
@@ -90,6 +90,7 @@
 #define BOARD_PIN_SD_SCK        UINT16_MAX
 
 /* ---- VÔ HIỆU HÓA CÁC CHÂN NGOẠI VI KHÁC ---- */
+#define BOARD_PIN_NRF24_CE      UINT16_MAX
 #define BOARD_PIN_NRF24_CSN     UINT16_MAX
 #define BOARD_PIN_PWR_EN        UINT16_MAX
 #define BOARD_PIN_NFC_SCL       UINT16_MAX
@@ -112,7 +113,7 @@
 #define BOARD_HAS_SUBGHZ        0
 #define BOARD_HAS_MIC           0
 
-/* ---- CẤU HÌNH QUẢN LÝ NGUỒN PIN GIẢ LẬP (Sửa lỗi furi_hal_power.c) ---- */
+/* ---- CẤU HÌNH QUẢN LÝ NGUỒN PIN GIẢ LẬP ---- */
 #define BQ27220_ADDR            0x55
 #define BQ_I2C_PORT             I2C_NUM_0
 #define HIGH_DRAIN_CURRENT_THRESHOLD (-200)
