@@ -123,6 +123,9 @@
 #define BOARD_HAS_NFC           0
 #define BOARD_HAS_SUBGHZ        0
 #define BOARD_HAS_MIC           0
+#define BOARD_BUTTONS_TYPE_GPIO 1   /* Báo cho Flipper biết nút bấm nối thẳng vào GPIO */
+#define BOARD_INPUT_ACTIVE_LOW  1   /* Định nghĩa nút nhấn sẽ kích hoạt khi chập xuống GND (0V) */
+#define BOARD_HAS_IO_EXPANDER   0   /* TẮT HOÀN TOÀN driver chip mở rộng chân gốc của T-Embed */
 
 /* ---- CẤU HÌNH QUẢN LÝ NGUỒN PIN GIẢ LẬP ---- */
 #define BQ27220_ADDR            0x00  
