@@ -26,18 +26,18 @@
 #define BOARD_PIN_LCD_BL        6   /* BLK */
 
 /* ---- LCD Display Configuration (Tối ưu cho màn 1.14 inch ST7789) ---- */
-#define BOARD_LCD_H_RES         240      
-#define BOARD_LCD_V_RES         135      
+#define BOARD_LCD_H_RES         135      
+#define BOARD_LCD_V_RES         240      
 #define BOARD_LCD_SPI_HOST      SPI2_HOST
-#define BOARD_LCD_SPI_FREQ_HZ   (40 * 1000 * 1000)
+#define BOARD_LCD_SPI_FREQ_HZ   (10 * 1000 * 1000)
 #define BOARD_LCD_CMD_BITS      8
 #define BOARD_LCD_PARAM_BITS    8
-#define BOARD_LCD_SWAP_XY       true
-#define BOARD_LCD_MIRROR_X      false
+#define BOARD_LCD_SWAP_XY       false
+#define BOARD_LCD_MIRROR_X      true
 #define BOARD_LCD_MIRROR_Y      false    
 #define BOARD_LCD_INVERT_COLOR  true     
-#define BOARD_LCD_GAP_X         40       
-#define BOARD_LCD_GAP_Y         53       
+#define BOARD_LCD_GAP_X         52       
+#define BOARD_LCD_GAP_Y         40       
 #define BOARD_LCD_BL_ACTIVE_LOW false    
 #define BOARD_LCD_COLOR_ORDER_BGR false 
 
