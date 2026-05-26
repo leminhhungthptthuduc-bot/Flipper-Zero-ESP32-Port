@@ -9,7 +9,16 @@
 /* ---- Board metadata ---- */
 #define BOARD_NAME        "ESP32-S3 Custom"
 #define BOARD_TARGET      "esp32s3"
-
+/* 🔴 THÊM CÁC DÒNG ĐỊNH NGHĨA "PHÒNG THỦ" NÀY ĐỂ TRÁNH LỖI UNDECLARED 🔴 */
+#ifndef BOARD_PIN_TOUCH_SCL
+#define BOARD_PIN_TOUCH_SCL      UINT16_MAX
+#endif
+#ifndef BOARD_PIN_TOUCH_SDA
+#define BOARD_PIN_TOUCH_SDA      UINT16_MAX
+#endif
+#ifndef BOARD_WS2812_LED_COUNT
+#define BOARD_WS2812_LED_COUNT   0
+#endif
 /* ---- 🛠️ LOGIC NÚT BẤM (GIỮ NGUYÊN TỪ YÊU CẦU ĐẦU) ---- */
 #define BOARD_PIN_BUTTON_UP      41  
 #define BOARD_PIN_BUTTON_DOWN    40  
