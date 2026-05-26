@@ -16,34 +16,24 @@ jobs:
       fail-fast: false
       matrix:
         board:
-          - name: generic_esp32s3
-            script_key: esp32s3
-            build_dir: build_s3
-            artifact_name: flipper-esp32s3-generic
+          - name: esp_s3
+            script_key: esp_s3
+            build_dir: build_esp_s3
+            artifact_name: flipper-esp32s3-custom
             chip: esp32s3
             flash_size: 16MB
-          - name: lilygo_t_embed_cc1101
-            script_key: t_embed
-            build_dir: build_t_embed
-            artifact_name: flipper-lilygo-t-embed-cc1101
-            chip: esp32s3
-            flash_size: 16MB
-       #   - name: waveshare_c6_1.9
-        #    script_key: waveshare_c6
-         #   build_dir: build_waveshare_c6
-          #  artifact_name: flipper-waveshare-c6-1.9
-           # chip: esp32c6
-            #flash_size: 8MB
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
       - name: Clear Corrupted Managed Components
         run: |
           rm -rf managed_components
           rm -f dependencies.lock
+
       - name: Clean stale sdkconfig
         run: |
           rm -f sdkconfig
@@ -140,7 +130,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.board.artifact_name }}
-          # Upload from the flat staging dir so the zip has no extra path prefix.
-          # Users unzip and immediately run flash_linux.sh or flash_windows.bat.
           path: artifact_staging/
           retention-days: 30
