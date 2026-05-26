@@ -1,6 +1,6 @@
 /**
  * @file furi_hal_gpio.c
- * GPIO HAL for ESP32
+ * GPIO HAL for ESP32 - Đã tối ưu hóa cho hệ thống 6 nút bấm trở ngoài 10k
  */
 
 #include "furi_hal_gpio.h"
@@ -95,11 +95,20 @@ void furi_hal_gpio_init_ex(
 
     if(!furi_hal_gpio_is_valid(gpio)) return;
 
+    /* 🛠️ BẺ KHÓA CAN THIỆP: Bảo vệ toàn bộ 6 chân nút bấm vật lý của bạn */
+    bool is_custom_button = (gpio->pin == 41 ||  // UP
+                             gpio->pin == 40 ||  // DOWN
+                             gpio->pin == 38 ||  // RIGHT
+                             gpio->pin == 39 ||  // LEFT (Hoặc gán tạm cho nút BACK)
+                             gpio->pin == 0  ||  // OK
+                             gpio->pin == 4);    // BACK (Chân số 4 gốc)
+
     gpio_config_t config = {
         .pin_bit_mask = 1ULL << gpio->pin,
         .mode = furi_hal_gpio_convert_mode(mode),
-        .pull_up_en = pull == GpioPullUp,
-        .pull_down_en = pull == GpioPullDown,
+        /* Ép tắt trở kéo nội bộ cho cả 6 chân để chạy hoàn toàn bằng trở 10k ngoài của bạn */
+        .pull_up_en = is_custom_button ? false : (pull == GpioPullUp),
+        .pull_down_en = is_custom_button ? false : (pull == GpioPullDown),
         .intr_type = furi_hal_gpio_convert_interrupt(mode),
     };
     gpio_config(&config);
