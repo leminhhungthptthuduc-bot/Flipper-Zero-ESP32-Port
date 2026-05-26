@@ -35,7 +35,7 @@
 /* ---- LCD Pins ---- */
 #define BOARD_PIN_LCD_SCLK       18
 #define BOARD_PIN_LCD_MOSI       17
-#define BOARD_PIN_LCD_DC         9
+#define BOARD_PIN_LCD_DC         15
 #define BOARD_PIN_LCD_CS         7
 #define BOARD_PIN_LCD_RST        16
 #define BOARD_PIN_LCD_BL         6
