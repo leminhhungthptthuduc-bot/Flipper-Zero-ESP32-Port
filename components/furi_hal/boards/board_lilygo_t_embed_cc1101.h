@@ -19,8 +19,8 @@
 /* ---- LCD Pins (Cấu hình chân chuẩn xác ba đã hàn theo Bruce) ---- */
 #define BOARD_PIN_LCD_SCLK      18  /* SCL */
 #define BOARD_PIN_LCD_MOSI      17  /* SDA */
-#define BOARD_PIN_LCD_DC        15  /* DC (Dùng chung chutyuân IO15) */
-#define BOARD_PIN_LCD_CS        9   /* CS */
+#define BOARD_PIN_LCD_DC        9  /* DC (Dùng chung chutyuân IO15) */
+#define BOARD_PIN_LCD_CS        15   /* CS */
 #define BOARD_PIN_LCD_RST       16  /* RES */
 #define BOARD_PIN_LCD_BL        6   /* BLK */
 
@@ -37,7 +37,7 @@
 #define BOARD_LCD_INVERT_COLOR  false     
 #define BOARD_LCD_GAP_X         0       /* Khớp tọa độ căn giữa màn hình 1.14" */
 #define BOARD_LCD_GAP_Y         0       /* Khớp tọa độ tránh lệch sọc màn hình 1.14" */
-#define BOARD_LCD_BL_ACTIVE_LOW false     /* Đặt TRUE để ép chân IO6 xuất điện bật đèn nền màn rời */
+#define BOARD_LCD_BL_ACTIVE_LOW true     /* Đặt TRUE để ép chân IO6 xuất điện bật đèn nền màn rời */
 #define BOARD_LCD_COLOR_ORDER_BGR true 
 
 /* Màu sắc hiển thị cơ bản */
