@@ -27,18 +27,18 @@
 /* ---- LCD Display Configuration (Tối ưu hóa Offset/Gap cho màn 1.14 inch) ---- */
 #define BOARD_LCD_H_RES         240      
 #define BOARD_LCD_V_RES         135      
-#define BOARD_LCD_SPI_HOST      SPI3_HOST
-#define BOARD_LCD_SPI_FREQ_HZ   (20 * 1000 * 1000) /* Tần số 20MHz cực kỳ ổn định */
+#define BOARD_LCD_SPI_HOST      SPI2_HOST
+#define BOARD_LCD_SPI_FREQ_HZ   (10 * 1000 * 1000) /* Tần số 20MHz cực kỳ ổn định */
 #define BOARD_LCD_CMD_BITS      8
 #define BOARD_LCD_PARAM_BITS    8
-#define BOARD_LCD_SWAP_XY       false
-#define BOARD_LCD_MIRROR_X      false
+#define BOARD_LCD_SWAP_XY       true
+#define BOARD_LCD_MIRROR_X      true
 #define BOARD_LCD_MIRROR_Y      false    
-#define BOARD_LCD_INVERT_COLOR  false     
+#define BOARD_LCD_INVERT_COLOR  true     
 #define BOARD_LCD_GAP_X         0       /* Khớp tọa độ căn giữa màn hình 1.14" */
 #define BOARD_LCD_GAP_Y         0       /* Khớp tọa độ tránh lệch sọc màn hình 1.14" */
 #define BOARD_LCD_BL_ACTIVE_LOW false     /* Đặt TRUE để ép chân IO6 xuất điện bật đèn nền màn rời */
-#define BOARD_LCD_COLOR_ORDER_BGR true 
+#define BOARD_LCD_COLOR_ORDER_BGR false 
 
 /* Màu sắc hiển thị cơ bản */
 #define BOARD_LCD_FG_COLOR      0xFFFF  /* Trắng */
