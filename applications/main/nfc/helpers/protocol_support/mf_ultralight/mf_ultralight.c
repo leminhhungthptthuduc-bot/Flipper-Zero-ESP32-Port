@@ -290,7 +290,7 @@ static void nfc_scene_read_success_on_enter_mf_ultralight(NfcApp* instance) {
  * ISO14443-4, but the NDEF content transfers reliably. No NDEF → len 0 →
  * HAL falls back to the legacy raw type-A path. */
 static void nfc_mf_ultralight_arm_ndef_emulation(const MfUltralightData* data) {
-    furi_hal_nfc_emu_set_ndef(NULL, 0);
+    //furi_hal_nfc_emu_set_ndef(NULL, 0);
     if(data == NULL) {
         FURI_LOG_W("NfcEmu", "arm_ndef: data == NULL → raw type-A fallback");
         return;
@@ -327,7 +327,7 @@ static void nfc_mf_ultralight_arm_ndef_emulation(const MfUltralightData* data) {
             i += 2;
         }
         if(t == 0x03) { /* NDEF message TLV */
-            if(l > 0 && i + l <= avail) furi_hal_nfc_emu_set_ndef(&ud[i], l);
+            //if(l > 0 && i + l <= avail) furi_hal_nfc_emu_set_ndef(&ud[i], l);
             return;
         }
         i += l; /* skip lock/memory-control TLVs */
