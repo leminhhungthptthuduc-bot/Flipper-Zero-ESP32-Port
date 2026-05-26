@@ -20,7 +20,7 @@
 #define BOARD_PIN_LCD_SCLK      18  /* SCL */
 #define BOARD_PIN_LCD_MOSI      17  /* SDA */
 #define BOARD_PIN_LCD_DC        9  /* DC (Dùng chung chutyuân IO15) */
-#define BOARD_PIN_LCD_CS        15   /* CS */
+#define BOARD_PIN_LCD_CS        7   /* CS */
 #define BOARD_PIN_LCD_RST       16  /* RES */
 #define BOARD_PIN_LCD_BL        6   /* BLK */
 
@@ -34,7 +34,7 @@
 #define BOARD_LCD_SWAP_XY       false
 #define BOARD_LCD_MIRROR_X      false
 #define BOARD_LCD_MIRROR_Y      false    
-#define BOARD_LCD_INVERT_COLOR  false     
+#define BOARD_LCD_INVERT_COLOR  true     
 #define BOARD_LCD_GAP_X         0       /* Khớp tọa độ căn giữa màn hình 1.14" */
 #define BOARD_LCD_GAP_Y         0       /* Khớp tọa độ tránh lệch sọc màn hình 1.14" */
 #define BOARD_LCD_BL_ACTIVE_LOW true     /* Đặt TRUE để ép chân IO6 xuất điện bật đèn nền màn rời */
@@ -116,8 +116,8 @@
 #define BOARD_HAS_MIC           0
 
 /* ---- CẤU HÌNH QUẢN LÝ NGUỒN PIN GIẢ LẬP ---- */
-#define BQ27220_ADDR            0x55
+#define BQ27220_ADDR            0x00
 #define BQ_I2C_PORT             I2C_NUM_0
 #define HIGH_DRAIN_CURRENT_THRESHOLD (-200)
 #define FURI_HAL_POWER_VIRTUAL_CAPACITY_MAH     (1300U)
-#define BQ25896_CHARGE_LIMIT    1280
+#define BQ25896_CHARGE_LIMIT    0
