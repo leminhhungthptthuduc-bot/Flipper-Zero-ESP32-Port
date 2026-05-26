@@ -1,6 +1,6 @@
 /**
  * @file board_lilygo_t_embed_cc1101.h
- * Board definition: LilyGo T-Embed CC1101 (Cấu hình SD, LCD và 5 nút bấm theo sơ đồ thực tế)
+ * Board definition: LilyGo T-Embed CC1101 (Đã đồng bộ SD, LCD và Định nghĩa kép 5 nút bấm rời)
  * MCU:      ESP32-S3 (dual-core Xtensa LX7 - N16R8)
  * Display:  ST7789 240x135 RGB565 via SPI (Custom Pins)
  */
@@ -11,26 +11,33 @@
 #define BOARD_NAME        "ESP32-S3 Custom 1.14 LCD"
 #define BOARD_TARGET      "esp32s3"
 
-/* ---- 🛠️ HỆ THỐNG NÚT BẤM ĐIỀU HƯỚNG (Cấu hình theo sơ đồ thực tế của bạn) ---- */
-#define BOARD_PIN_BUTTON_UP      41  /* Khớp chân UP số 41 */
-#define BOARD_PIN_BUTTON_DOWN    40  /* Khớp chân DOWN số 40 */
-#define BOARD_PIN_BUTTON_RIGHT   38  /* Khớp chân RIGHT số 38 */
-#define BOARD_PIN_BUTTON_OK      0   /* Khớp chân OK số 0 */
+/* ---- 🛠️ HỆ THỐNG NÚT BẤM ĐIỀU HƯỚNG (Định nghĩa kép theo sơ đồ thực tế) ---- */
+/* Kiểu 1: Cấu hình cho Driver quét trực tiếp chân BTN thô */
+#define BOARD_PIN_BTN_UP         41  /* Khớp chân UP số 41 */
+#define BOARD_PIN_BTN_DOWN       40  /* Khớp chân DOWN số 40 */
+#define BOARD_PIN_BTN_RIGHT      38  /* Khớp chân RIGHT số 38 */
+#define BOARD_PIN_BTN_OK         0   /* Khớp chân OK số 0 */
+#define BOARD_PIN_BTN_BACK       39  /* Đổi nút LEFT (39) thành nút BACK */
+#define BOARD_PIN_BTN_LEFT       UINT16_MAX
 
-/* 🔄 Tạm thời thay thế chân nút LEFT (39) để làm nút BACK (Quay lại) */
-#define BOARD_PIN_BUTTON_BACK    39  /* Nhấn nút này sẽ tương đương lệnh BACK/THOÁT */
-#define BOARD_PIN_BUTTON_LEFT    UINT16_MAX /* Tạm thời vô hiệu hóa tính năng LEFT gốc */
+/* Kiểu 2: Cấu hình bọc lót cho Driver gốc gọi BUTTON của T-Embed */
+#define BOARD_PIN_BUTTON_UP      41  
+#define BOARD_PIN_BUTTON_DOWN    40  
+#define BOARD_PIN_BUTTON_RIGHT   38  
+#define BOARD_PIN_BUTTON_OK      0   
+#define BOARD_PIN_BUTTON_BACK    39  
+#define BOARD_PIN_BUTTON_LEFT    UINT16_MAX 
 
-/* Vô hiệu hóa các nút bấm phần cứng gốc không dùng tới */
-#define BOARD_PIN_BUTTON_BOOT   UINT16_MAX
-#define BOARD_PIN_BUTTON_KEY    UINT16_MAX
-#define BOARD_PIN_BATTERY_ADC   UINT16_MAX
+/* Vô hiệu hóa triệt để các nút phụ phần cứng gốc không dùng tới */
+#define BOARD_PIN_BUTTON_BOOT    UINT16_MAX
+#define BOARD_PIN_BUTTON_KEY     UINT16_MAX
+#define BOARD_PIN_BATTERY_ADC    UINT16_MAX
 
 /* ---- LCD Pins (Cấu hình chân đồng bộ sau khi chuyển đổi chân DC) ---- */
 #define BOARD_PIN_LCD_SCLK      18  /* SCL / CLK */
 #define BOARD_PIN_LCD_MOSI      17  /* SDA / MOSI */
 #define BOARD_PIN_LCD_DC        9   /* DC - Đã chuyển sang IO9 an toàn */
-#define BOARD_PIN_LCD_CS        7   /* CS - Khớp với file của bạn */
+#define BOARD_PIN_LCD_CS        7   /* CS - Khớp cấu hình của bạn */
 #define BOARD_PIN_LCD_RST       16  /* RES */
 #define BOARD_PIN_LCD_BL        6   /* BLK */
 
@@ -41,6 +48,8 @@
 #define BOARD_LCD_SPI_FREQ_HZ   (20 * 1000 * 1000) 
 #define BOARD_LCD_CMD_BITS      8
 #define BOARD_LCD_PARAM_BITS    8
+
+/* 🔄 Hướng hiển thị chuẩn (Chữ xuôi, không lật gương, màu cam Flipper) */
 #define BOARD_LCD_SWAP_XY       true
 #define BOARD_LCD_MIRROR_X      true
 #define BOARD_LCD_MIRROR_Y      false    
@@ -111,7 +120,7 @@
 
 /* ---- FEATURES FLAGS ---- */
 #define BOARD_HAS_TOUCH         0
-#define BOARD_HAS_ENCODER       0   /* Bắt buộc để 0 để nhận nút bấm rời */
+#define BOARD_HAS_ENCODER       0   /* Bắt buộc để 0 để nhận phím rời */
 #define BOARD_HAS_SD_CARD       1   /* Kích hoạt driver thẻ SD */
 #define BOARD_HAS_BLE           0
 #define BOARD_HAS_RGB_LED       0
@@ -123,9 +132,11 @@
 #define BOARD_HAS_NFC           0
 #define BOARD_HAS_SUBGHZ        0
 #define BOARD_HAS_MIC           0
-#define BOARD_BUTTONS_TYPE_GPIO 1   /* Báo cho Flipper biết nút bấm nối thẳng vào GPIO */
-#define BOARD_INPUT_ACTIVE_LOW  1   /* Định nghĩa nút nhấn sẽ kích hoạt khi chập xuống GND (0V) */
-#define BOARD_HAS_IO_EXPANDER   0   /* TẮT HOÀN TOÀN driver chip mở rộng chân gốc của T-Embed */
+
+/* ---- ÉP LÕI DRIVER ĐỌC TRỰC TIẾP GPIO CHÂN THÔ ---- */
+#define BOARD_BUTTONS_TYPE_GPIO 1   /* Buộc lõi nhận diện nút nhấn dạng GPIO rời */
+#define BOARD_INPUT_ACTIVE_LOW  1   /* Khởi tạo nút nhấn tích cực mức THẤP (Sập về GND) */
+#define BOARD_HAS_IO_EXPANDER   0   /* Cô lập hoàn toàn driver chip mở rộng I2C của mạch gốc */
 
 /* ---- CẤU HÌNH QUẢN LÝ NGUỒN PIN GIẢ LẬP ---- */
 #define BQ27220_ADDR            0x00  
