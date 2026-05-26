@@ -1,6 +1,6 @@
 /**
  * @file board_lilygo_t_embed_cc1101.h
- * Board definition: LilyGo T-Embed CC1101 (Đã cấu hình SD theo sơ đồ thực tế)
+ * Board definition: LilyGo T-Embed CC1101 (Cấu hình SD, LCD và 5 nút bấm theo sơ đồ thực tế)
  * MCU:      ESP32-S3 (dual-core Xtensa LX7 - N16R8)
  * Display:  ST7789 240x135 RGB565 via SPI (Custom Pins)
  */
@@ -11,7 +11,17 @@
 #define BOARD_NAME        "ESP32-S3 Custom 1.14 LCD"
 #define BOARD_TARGET      "esp32s3"
 
-/* ---- Hardware Button / Encoder Pins ---- */
+/* ---- 🛠️ HỆ THỐNG NÚT BẤM ĐIỀU HƯỚNG (Cấu hình theo sơ đồ thực tế của bạn) ---- */
+#define BOARD_PIN_BUTTON_UP      41  /* Khớp chân UP số 41 */
+#define BOARD_PIN_BUTTON_DOWN    40  /* Khớp chân DOWN số 40 */
+#define BOARD_PIN_BUTTON_RIGHT   38  /* Khớp chân RIGHT số 38 */
+#define BOARD_PIN_BUTTON_OK      0   /* Khớp chân OK số 0 */
+
+/* 🔄 Tạm thời thay thế chân nút LEFT (39) để làm nút BACK (Quay lại) */
+#define BOARD_PIN_BUTTON_BACK    39  /* Nhấn nút này sẽ tương đương lệnh BACK/THOÁT */
+#define BOARD_PIN_BUTTON_LEFT    UINT16_MAX /* Tạm thời vô hiệu hóa tính năng LEFT gốc */
+
+/* Vô hiệu hóa các nút bấm phần cứng gốc không dùng tới */
 #define BOARD_PIN_BUTTON_BOOT   UINT16_MAX
 #define BOARD_PIN_BUTTON_KEY    UINT16_MAX
 #define BOARD_PIN_BATTERY_ADC   UINT16_MAX
@@ -20,7 +30,7 @@
 #define BOARD_PIN_LCD_SCLK      18  /* SCL / CLK */
 #define BOARD_PIN_LCD_MOSI      17  /* SDA / MOSI */
 #define BOARD_PIN_LCD_DC        9   /* DC - Đã chuyển sang IO9 an toàn */
-#define BOARD_PIN_LCD_CS        7  /* CS - Đẩy về IO15 */
+#define BOARD_PIN_LCD_CS        7   /* CS - Khớp với file của bạn */
 #define BOARD_PIN_LCD_RST       16  /* RES */
 #define BOARD_PIN_LCD_BL        6   /* BLK */
 
@@ -34,7 +44,7 @@
 #define BOARD_LCD_SWAP_XY       true
 #define BOARD_LCD_MIRROR_X      true
 #define BOARD_LCD_MIRROR_Y      false    
-#define BOARD_LCD_INVERT_COLOR  false    /* Giữ true để tránh ngược dải màu đồ họa */
+#define BOARD_LCD_INVERT_COLOR  false    
 #define BOARD_LCD_GAP_X         40       
 #define BOARD_LCD_GAP_Y         53       
 #define BOARD_LCD_BL_ACTIVE_LOW false    /* Xuất lệnh bật đèn nền màn hình */
@@ -78,7 +88,7 @@
 #define BOARD_PIN_SPEAKER_DOUT  UINT16_MAX
 #define BOARD_PIN_SPEAKER        UINT16_MAX
 
-/* ---- GIẢ LẬP HỆ THỐNG HỒNG NGOẠIR IR ---- */
+/* ---- GIẢ LẬP HỆ THỐNG HỒNG NGOẠI IR ---- */
 #define BOARD_PIN_IR_TX         UINT16_MAX
 #define BOARD_PIN_IR_RX         UINT16_MAX
 
@@ -99,9 +109,9 @@
 #define BOARD_PIN_MIC_DATA      UINT16_MAX
 #define BOARD_PIN_MIC_CLK       UINT16_MAX
 
-/* ---- FEATURES FLAGS (Bật tính năng SD) ---- */
+/* ---- FEATURES FLAGS ---- */
 #define BOARD_HAS_TOUCH         0
-#define BOARD_HAS_ENCODER       0
+#define BOARD_HAS_ENCODER       0   /* Bắt buộc để 0 để nhận nút bấm rời */
 #define BOARD_HAS_SD_CARD       1   /* Kích hoạt driver thẻ SD */
 #define BOARD_HAS_BLE           0
 #define BOARD_HAS_RGB_LED       0
@@ -115,7 +125,7 @@
 #define BOARD_HAS_MIC           0
 
 /* ---- CẤU HÌNH QUẢN LÝ NGUỒN PIN GIẢ LẬP ---- */
-#define BQ27220_ADDR            0x00  /* Bỏ qua chip nguồn hệ thống để tránh bị ngắt sleep ngầm */
+#define BQ27220_ADDR            0x00  
 #define BQ_I2C_PORT             I2C_NUM_0
 #define HIGH_DRAIN_CURRENT_THRESHOLD (-200)
 #define FURI_HAL_POWER_VIRTUAL_CAPACITY_MAH     (1300U)
