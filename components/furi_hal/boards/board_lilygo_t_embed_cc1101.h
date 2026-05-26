@@ -19,8 +19,8 @@
 /* ---- LCD Pins (Cấu hình chân chuẩn xác ba đã hàn theo Bruce) ---- */
 #define BOARD_PIN_LCD_SCLK      18  /* SCL */
 #define BOARD_PIN_LCD_MOSI      17  /* SDA */
-#define BOARD_PIN_LCD_DC        9  /* DC (Dùng chung chutyuân IO15) */
-#define BOARD_PIN_LCD_CS        7   /* CS */
+#define BOARD_PIN_LCD_DC        15  /* DC (Dùng chung chutyuân IO15) */
+#define BOARD_PIN_LCD_CS        9   /* CS */
 #define BOARD_PIN_LCD_RST       16  /* RES */
 #define BOARD_PIN_LCD_BL        6   /* BLK */
 
