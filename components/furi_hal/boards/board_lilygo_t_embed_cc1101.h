@@ -27,7 +27,7 @@
 /* ---- LCD Display Configuration (Tối ưu hóa Offset/Gap cho màn 1.14 inch) ---- */
 #define BOARD_LCD_H_RES         240      
 #define BOARD_LCD_V_RES         135      
-#define BOARD_LCD_SPI_HOST      SPI3_HOST
+#define BOARD_LCD_SPI_HOST      SPI2_HOST
 #define BOARD_LCD_SPI_FREQ_HZ   (20 * 1000 * 1000) /* Tần số 20MHz cực kỳ ổn định */
 #define BOARD_LCD_CMD_BITS      8
 #define BOARD_LCD_PARAM_BITS    8
