@@ -1,24 +1,34 @@
+/**
  * @file target_input.c
  * Input driver: 6 GPIO buttons
+ * Ép hệ thống đọc chính xác file cấu hình chân phần cứng (.h) của bạn.
+ */
 
 #include "target_input.h"
 
 #include <furi_hal_resources.h>
-#include <boards/board.h>
+
+// =========================================================================
+// ⚠️ THAY ĐỔI QUAN TRỌNG: Gọi thẳng file cấu hình chân phần cứng của bạn
+// Thay "board_esp_s3.h" bằng đúng tên file .h chứa chân GPIO của bạn nếu khác
+// =========================================================================
+#include <boards/board_esp_s3.h> 
+// =========================================================================
+
 #include <driver/gpio.h>
 #include <esp_err.h>
 
 #define TAG "InputButtons"
 
-/* Timing constants */   ///// if you have trouble with buttons being to slow or double presses, mess with these constants, however they work perfectly on common tactile buttons for me
+/* Timing constants */
 #define INPUT_DEBOUNCE_POLLS   2U
-#define INPUT_LONG_PRESS_MS    500U
+#define INPUT_LONG_PRESS_MS     500U
 #define INPUT_REPEAT_MS        200U
 
 /* Button state */
 typedef struct {
     gpio_num_t gpio;
-    bool       inverted;           
+    bool       inverted;           /* true = active-low */
     InputKey   short_key;
     InputKey   long_key;
     bool       raw_pressed;
@@ -75,11 +85,11 @@ static void button_init_gpio(gpio_num_t pin, bool pull_up) {
 
 static void button_poll(
     ButtonState* btn,
-    FuriPubSub*  pubsub,
+    FuriPubSub* pubsub,
     uint32_t     now,
     uint32_t     long_press_ticks,
     uint32_t     repeat_ticks,
-    uint32_t*    sequence_counter)
+    uint32_t* sequence_counter)
 {
     bool raw = button_is_pressed(btn);
 
@@ -127,10 +137,10 @@ static void button_poll(
     }
 }
 
-//////////////
+/* --- Public API --- */
 
 void target_input_init(void) {
-    /* Define all 6 buttons: { gpio, active-low, short_key, long_key } */
+    /* Lúc này BOARD_PIN_BTN_... chắc chắn sẽ được lôi từ file board_esp_s3.h của bạn ra */
     const struct { gpio_num_t pin; InputKey sk; InputKey lk; } cfg[NUM_BUTTONS] = {
         { BOARD_PIN_BTN_UP,    InputKeyUp,    InputKeyUp    },
         { BOARD_PIN_BTN_DOWN,  InputKeyDown,  InputKeyDown  },
@@ -145,7 +155,7 @@ void target_input_init(void) {
 
         ButtonState* b    = &buttons[i];
         b->gpio           = cfg[i].pin;
-        b->inverted       = true;   /* all buttons active-low */
+        b->inverted       = true;   /* Các nút bấm nối chân GND (active-low) */
         b->short_key      = cfg[i].sk;
         b->long_key       = cfg[i].lk;
         b->raw_pressed    = button_is_pressed(b);
@@ -156,7 +166,7 @@ void target_input_init(void) {
         b->last_repeat_at    = 0;
     }
 
-    FURI_LOG_I(TAG, "6-button input initialized");
+    FURI_LOG_I(TAG, "6-button input initialized from your custom .h file");
 }
 
 void target_input_poll(FuriPubSub* pubsub, uint32_t* sequence_counter) {
