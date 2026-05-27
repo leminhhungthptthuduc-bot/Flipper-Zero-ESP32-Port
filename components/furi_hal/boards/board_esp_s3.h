@@ -6,7 +6,6 @@
  */
 
 #pragma once
-#error "=== CO CHAY VAO FILE BOARD CUA TOI CO PIN 41 40 THI DUNG BIEN DICH ==="
 
 /* ---- Board metadata ---- */
 #define BOARD_NAME        "ESP32-S3 Custom"
