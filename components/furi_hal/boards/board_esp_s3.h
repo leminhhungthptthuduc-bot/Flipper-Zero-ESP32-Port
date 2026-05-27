@@ -46,7 +46,7 @@
 #define BOARD_LCD_GAP_X          40
 #define BOARD_LCD_GAP_Y          53
 #define BOARD_LCD_BL_ACTIVE_LOW  false
-#define BOARD_LCD_COLOR_ORDER_BGR true
+#define BOARD_LCD_COLOR_ORDER_BGR false
 #define BOARD_LCD_FG_COLOR       0xFFFF
 #define BOARD_LCD_BG_COLOR       0x0000
 
