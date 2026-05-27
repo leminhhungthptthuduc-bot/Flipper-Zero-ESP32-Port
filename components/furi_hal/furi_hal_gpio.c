@@ -1,6 +1,6 @@
 /**
  * @file furi_hal_gpio.c
- * GPIO HAL for ESP32
+ * GPIO HAL for ESP32 - Fixed for Internal Pull-Up on Input Pins
  */
 
 #include "furi_hal_gpio.h"
@@ -72,8 +72,20 @@ static gpio_int_type_t furi_hal_gpio_convert_interrupt(GpioMode mode) {
     }
 }
 
+/* --- ĐOẠN CODE ĐÃ ĐƯỢC ĐỔI MỚI ĐỂ SỬA LỖI LIỆT NÚT --- */
 void furi_hal_gpio_init_simple(const GpioPin* gpio, const GpioMode mode) {
-    furi_hal_gpio_init(gpio, mode, GpioPullNo, GpioSpeedLow);
+    // Tự động kích hoạt Pull-Up nếu chân được cấu hình làm Input hoặc Ngắt (Nút bấm)
+    if (mode == GpioModeInput || 
+        mode == GpioModeInterruptRise || 
+        mode == GpioModeInterruptFall || 
+        mode == GpioModeInterruptRiseFall ||
+        mode == GpioModeEventRise ||
+        mode == GpioModeEventFall ||
+        mode == GpioModeEventRiseFall) {
+        furi_hal_gpio_init(gpio, mode, GpioPullUp, GpioSpeedLow);
+    } else {
+        furi_hal_gpio_init(gpio, mode, GpioPullNo, GpioSpeedLow);
+    }
 }
 
 void furi_hal_gpio_init(
