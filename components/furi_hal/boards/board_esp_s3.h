@@ -36,7 +36,7 @@
 #define BOARD_LCD_H_RES          240
 #define BOARD_LCD_V_RES          135
 #define BOARD_LCD_SPI_HOST       SPI2_HOST
-#define BOARD_LCD_SPI_FREQ_HZ    (40 * 1000 * 1000)
+#define BOARD_LCD_SPI_FREQ_HZ    (20 * 1000 * 1000)
 #define BOARD_LCD_CMD_BITS       8
 #define BOARD_LCD_PARAM_BITS     8
 #define BOARD_LCD_SWAP_XY        true
