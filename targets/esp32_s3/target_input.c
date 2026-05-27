@@ -1,14 +1,6 @@
 /**
  * @file target_input.c
- * Input driver: 6 GPIO buttons
- *
- * Button mapping (configure BOARD_PIN_BTN_* in board.h):
- *   BTN_UP     -> InputKeyUp
- *   BTN_DOWN   -> InputKeyDown
- *   BTN_LEFT   -> InputKeyLeft
- *   BTN_RIGHT  -> InputKeyRight
- *   BTN_OK     -> InputKeyOk    (short press = Ok, long press = Ok Long)
- *   BTN_BACK   -> InputKeyBack  (short press = Back, long press = Back Long)
+ * Input driver: 6 GPIO buttons (Sửa lỗi kẹt khi có chân UINT16_MAX)
  */
 
 #include "target_input.h"
@@ -22,7 +14,7 @@
 
 /* Timing constants */
 #define INPUT_DEBOUNCE_POLLS   2U
-#define INPUT_LONG_PRESS_MS    500U
+#define INPUT_LONG_PRESS_MS     500U
 #define INPUT_REPEAT_MS        200U
 
 /* Button state */
@@ -63,11 +55,17 @@ static void input_emit_short(FuriPubSub* pubsub, InputKey key, uint32_t sequence
 }
 
 static bool button_is_pressed(ButtonState* btn) {
+    // Nếu chân không hợp lệ (UINT16_MAX), coi như nút đó không bao giờ bấm
+    if(btn->gpio == UINT16_MAX || (uint16_t)btn->gpio == 65535) return false;
+    
     int level = gpio_get_level(btn->gpio);
     return btn->inverted ? (level == 0) : (level != 0);
 }
 
 static void button_init_gpio(gpio_num_t pin, bool pull_up) {
+    // Không cấu hình nếu chân là UINT16_MAX để tránh làm crash driver
+    if(pin == UINT16_MAX || (uint16_t)pin == 65535) return;
+
     gpio_config_t cfg = {
         .pin_bit_mask = (1ULL << pin),
         .mode         = GPIO_MODE_INPUT,
@@ -85,12 +83,15 @@ static void button_init_gpio(gpio_num_t pin, bool pull_up) {
 
 static void button_poll(
     ButtonState* btn,
-    FuriPubSub*  pubsub,
+    FuriPubSub* pubsub,
     uint32_t     now,
     uint32_t     long_press_ticks,
     uint32_t     repeat_ticks,
-    uint32_t*    sequence_counter)
+    uint32_t* sequence_counter)
 {
+    // Bỏ qua không quét nếu chân là UINT16_MAX
+    if(btn->gpio == UINT16_MAX || (uint16_t)btn->gpio == 65535) return;
+
     bool raw = button_is_pressed(btn);
 
     /* Debounce */
@@ -140,11 +141,10 @@ static void button_poll(
 /* --- Public API --- */
 
 void target_input_init(void) {
-    /* Define all 6 buttons: { gpio, active-low, short_key, long_key } */
     const struct { gpio_num_t pin; InputKey sk; InputKey lk; } cfg[NUM_BUTTONS] = {
         { BOARD_PIN_BTN_UP,    InputKeyUp,    InputKeyUp    },
         { BOARD_PIN_BTN_DOWN,  InputKeyDown,  InputKeyDown  },
-        { BOARD_PIN_BTN_LEFT,  InputKeyLeft,  InputKeyLeft  },
+        { BOARD_PIN_BTN_LEFT,  InputKeyLeft,  InputKeyLeft  }, // Chân này là UINT16_MAX sẽ tự động bỏ qua
         { BOARD_PIN_BTN_RIGHT, InputKeyRight, InputKeyRight },
         { BOARD_PIN_BTN_OK,    InputKeyOk,    InputKeyOk    },
         { BOARD_PIN_BTN_BACK,  InputKeyBack,  InputKeyBack  },
@@ -155,18 +155,18 @@ void target_input_init(void) {
 
         ButtonState* b    = &buttons[i];
         b->gpio           = cfg[i].pin;
-        b->inverted       = true;   /* all buttons active-low */
+        b->inverted       = true;   /* Mạch của bro dùng Active-Low */
         b->short_key      = cfg[i].sk;
         b->long_key       = cfg[i].lk;
-        b->raw_pressed    = button_is_pressed(b);
-        b->debounced_pressed = b->raw_pressed;
+        b->raw_pressed    = false;  // Tránh kẹt loop lúc khởi động
+        b->debounced_pressed = false;
         b->debounce_polls = INPUT_DEBOUNCE_POLLS;
         b->press_started_at  = 0;
         b->long_press_sent   = false;
         b->last_repeat_at    = 0;
     }
 
-    FURI_LOG_I(TAG, "6-button input initialized");
+    FURI_LOG_I(TAG, "6-button input initialized with safety checks for disabled pins");
 }
 
 void target_input_poll(FuriPubSub* pubsub, uint32_t* sequence_counter) {
