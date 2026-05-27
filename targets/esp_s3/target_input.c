@@ -1,6 +1,6 @@
 /**
  * @file target_input.c
- * Input driver: 6 GPIO buttons (Sửa lỗi kẹt khi có chân UINT16_MAX)
+ * Input driver: 6 GPIO buttons (Cấu hình tối ưu cho trở kéo lên ngoài - External Pull-up)
  */
 
 #include "target_input.h"
@@ -20,7 +20,7 @@
 /* Button state */
 typedef struct {
     gpio_num_t gpio;
-    bool       inverted;           /* true = active-low */
+    bool       inverted;           /* true = active-low (vẫn giữ nguyên vì nhấn nút là kéo về GND) */
     InputKey   short_key;
     InputKey   long_key;
     bool       raw_pressed;
@@ -62,15 +62,15 @@ static bool button_is_pressed(ButtonState* btn) {
     return btn->inverted ? (level == 0) : (level != 0);
 }
 
-static void button_init_gpio(gpio_num_t pin, bool pull_up) {
+static void button_init_gpio(gpio_num_t pin) {
     // Không cấu hình nếu chân là UINT16_MAX để tránh làm crash driver
     if(pin == UINT16_MAX || (uint16_t)pin == 65535) return;
 
     gpio_config_t cfg = {
         .pin_bit_mask = (1ULL << pin),
         .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = pull_up ? GPIO_PULLUP_ENABLE   : GPIO_PULLUP_DISABLE,
-        .pull_down_en = pull_up ? GPIO_PULLDOWN_DISABLE : GPIO_PULLDOWN_ENABLE,
+        .pull_up_en   = GPIO_PULLUP_DISABLE,   /* TẮT Pull-up nội bộ vì đã có trở ngoài */
+        .pull_down_en = GPIO_PULLDOWN_DISABLE, /* TẮT luôn Pull-down nội bộ tránh xung đột dòng điện */
         .intr_type    = GPIO_INTR_DISABLE,
     };
     esp_err_t err = gpio_config(&cfg);
@@ -151,14 +151,14 @@ void target_input_init(void) {
     };
 
     for(int i = 0; i < NUM_BUTTONS; i++) {
-        button_init_gpio(cfg[i].pin, /*pull_up=*/true);
+        button_init_gpio(cfg[i].pin); /* Gọi hàm init đã bỏ hết trở kéo nội bộ */
 
         ButtonState* b    = &buttons[i];
         b->gpio           = cfg[i].pin;
-        b->inverted       = true;   /* Mạch của bro dùng Active-Low */
+        b->inverted       = true;   /* Giữ nguyên true vì trở ngoài kéo lên 3.3V, khi bấm nút chạm đất GND sẽ về 0V */
         b->short_key      = cfg[i].sk;
         b->long_key       = cfg[i].lk;
-        b->raw_pressed    = false;  // Tránh kẹt loop lúc khởi động
+        b->raw_pressed    = false;  
         b->debounced_pressed = false;
         b->debounce_polls = INPUT_DEBOUNCE_POLLS;
         b->press_started_at  = 0;
@@ -166,7 +166,7 @@ void target_input_init(void) {
         b->last_repeat_at    = 0;
     }
 
-    FURI_LOG_I(TAG, "6-button input initialized with safety checks for disabled pins");
+    FURI_LOG_I(TAG, "6-button input initialized with EXTERNAL pull-up configuration");
 }
 
 void target_input_poll(FuriPubSub* pubsub, uint32_t* sequence_counter) {
