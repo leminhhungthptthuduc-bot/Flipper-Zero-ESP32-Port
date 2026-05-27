@@ -1,10 +1,6 @@
-# Board selection: pass -DFLIPPER_BOARD=<board_name> to idf.py build
-# Available boards (see boards/ directory and targets/ directory):
-#   waveshare_c6_1.9        - Waveshare ESP32-C6-LCD-1.9 (default, touch input)
-#   waveshare_c6_1.47       - Waveshare ESP32-C6-LCD-1.47 (touch input + IMU)
-#   lilygo_t_embed_cc1101   - LilyGo T-Embed CC1101 (ESP32-S3, encoder input, CC1101/NFC/IR)
+# Board selection: Đã cố định về esp_s3
 if(NOT DEFINED FLIPPER_BOARD)
-    set(FLIPPER_BOARD "waveshare_c6_1.9" CACHE STRING "Target board for Flipper ESP32 port")
+    set(FLIPPER_BOARD "esp_s3" CACHE STRING "Target board for Flipper ESP32 port")
 endif()
 message(STATUS "Flipper board: ${FLIPPER_BOARD}")
 
@@ -50,7 +46,7 @@ set(FURI_HAL_REQUIRES
     esp_adc esp_driver_rmt esp_driver_i2s nvs_flash
 )
 
-# HID backend: TinyUSB on SoCs with USB-OTG, stub elsewhere.
+# HID backend: TinyUSB trên các dòng SoC hỗ trợ USB-OTG (như ESP32-S3), stub ở các dòng khác.
 if(IDF_TARGET STREQUAL "esp32s3" OR IDF_TARGET STREQUAL "esp32s2")
     list(APPEND FURI_HAL_SRCS
         "furi_hal_usb_hid_tinyusb.c"
@@ -68,9 +64,9 @@ idf_component_register(
     REQUIRES ${FURI_HAL_REQUIRES}
 )
 
-# Set board include path as compile definition
+# Ép buộc dự án luôn luôn nhận file board_esp_s3.h
 target_compile_definitions(${COMPONENT_LIB} PUBLIC
-    BOARD_INCLUDE="board_${FLIPPER_BOARD}.h"
+    BOARD_INCLUDE="board_esp_s3.h"
 )
 
 target_compile_options(${COMPONENT_LIB} PRIVATE
