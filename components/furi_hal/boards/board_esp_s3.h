@@ -8,7 +8,7 @@
 #pragma once
 
 /* ---- Board metadata ---- */
-#define BOARD_NAME        "ESP32-S3 Custom"
+#define BOARD_NAME        "esp_s3"
 #define BOARD_TARGET      "esp32s3"
 
 /* ---- 🛠️ HỆ THỐNG NÚT BẤM ĐIỀU HƯỚNG ---- */
