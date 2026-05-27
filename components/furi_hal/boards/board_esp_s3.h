@@ -16,7 +16,7 @@
 #define BOARD_PIN_BTN_UP         41
 #define BOARD_PIN_BTN_DOWN       40
 #define BOARD_PIN_BTN_RIGHT      38
-#define BOARD_PIN_BTN_OK         0
+#define BOARD_PIN_BTN_OK         9
 #define BOARD_PIN_BTN_BACK       39
 #define BOARD_PIN_BTN_LEFT       UINT16_MAX
 
@@ -85,7 +85,7 @@
 #define BOARD_PIN_SPEAKER        UINT16_MAX
 
 /* ---- GIẢ LẬP HỆ THỐNG HỒNG NGOẠI IR ---- */
-#define BOARD_PIN_IR_TX          UINT16_MAX
+#define BOARD_PIN_IR_TX          5
 #define BOARD_PIN_IR_RX          UINT16_MAX
 
 /* ---- CẤU HÌNH THẺ NHỚ SD ---- */
@@ -113,7 +113,7 @@
 #define BOARD_HAS_RGB_LED        0
 #define BOARD_HAS_VIBRO          0
 #define BOARD_HAS_SPEAKER        0
-#define BOARD_HAS_IR             0
+#define BOARD_HAS_IR             1
 #define BOARD_HAS_IBUTTON        0
 #define BOARD_HAS_RFID           0
 #define BOARD_HAS_NFC            0
