@@ -36,7 +36,7 @@
 #define BOARD_LCD_H_RES          240
 #define BOARD_LCD_V_RES          135
 #define BOARD_LCD_SPI_HOST       SPI2_HOST
-#define BOARD_LCD_SPI_FREQ_HZ    (20 * 1000 * 1000)
+#define BOARD_LCD_SPI_FREQ_HZ    (40 * 1000 * 1000)
 #define BOARD_LCD_CMD_BITS       8
 #define BOARD_LCD_PARAM_BITS     8
 #define BOARD_LCD_SWAP_XY        true
@@ -47,7 +47,7 @@
 #define BOARD_LCD_GAP_Y          53
 #define BOARD_LCD_BL_ACTIVE_LOW  false
 #define BOARD_LCD_COLOR_ORDER_BGR false
-#define BOARD_LCD_FG_COLOR       0xFFFF
+#define BOARD_LCD_FG_COLOR       0xFA00
 #define BOARD_LCD_BG_COLOR       0x0000
 
 /* ---- GIẢ LẬP HỆ THỐNG ENCODER / INPUT ---- */
