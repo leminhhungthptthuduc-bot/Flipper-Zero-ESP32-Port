@@ -42,7 +42,7 @@
 #define BOARD_LCD_SWAP_XY        true
 #define BOARD_LCD_MIRROR_X       true
 #define BOARD_LCD_MIRROR_Y       false
-#define BOARD_LCD_INVERT_COLOR   false
+#define BOARD_LCD_INVERT_COLOR   true
 #define BOARD_LCD_GAP_X          40
 #define BOARD_LCD_GAP_Y          53
 #define BOARD_LCD_BL_ACTIVE_LOW  false
