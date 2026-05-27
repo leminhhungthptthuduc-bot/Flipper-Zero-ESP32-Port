@@ -1,20 +1,20 @@
 /**
  * @file target_input.c
  * Input driver: 6 GPIO buttons
- * Ép hệ thống đọc chính xác file cấu hình chân phần cứng (.h) của bạn.
+ *
+ * Button mapping (configure BOARD_PIN_BTN_* in board.h):
+ *   BTN_UP     -> InputKeyUp
+ *   BTN_DOWN   -> InputKeyDown
+ *   BTN_LEFT   -> InputKeyLeft
+ *   BTN_RIGHT  -> InputKeyRight
+ *   BTN_OK     -> InputKeyOk    (short press = Ok, long press = Ok Long)
+ *   BTN_BACK   -> InputKeyBack  (short press = Back, long press = Back Long)
  */
 
 #include "target_input.h"
 
 #include <furi_hal_resources.h>
-
-// =========================================================================
-// ⚠️ THAY ĐỔI QUAN TRỌNG: Gọi thẳng file cấu hình chân phần cứng của bạn
-// Thay "board_esp_s3.h" bằng đúng tên file .h chứa chân GPIO của bạn nếu khác
-// =========================================================================
-#include <boards/board_esp_s3.h> 
-// =========================================================================
-
+#include <boards/board.h>
 #include <driver/gpio.h>
 #include <esp_err.h>
 
@@ -22,7 +22,7 @@
 
 /* Timing constants */
 #define INPUT_DEBOUNCE_POLLS   2U
-#define INPUT_LONG_PRESS_MS     500U
+#define INPUT_LONG_PRESS_MS    500U
 #define INPUT_REPEAT_MS        200U
 
 /* Button state */
@@ -85,11 +85,11 @@ static void button_init_gpio(gpio_num_t pin, bool pull_up) {
 
 static void button_poll(
     ButtonState* btn,
-    FuriPubSub* pubsub,
+    FuriPubSub*  pubsub,
     uint32_t     now,
     uint32_t     long_press_ticks,
     uint32_t     repeat_ticks,
-    uint32_t* sequence_counter)
+    uint32_t*    sequence_counter)
 {
     bool raw = button_is_pressed(btn);
 
@@ -140,7 +140,7 @@ static void button_poll(
 /* --- Public API --- */
 
 void target_input_init(void) {
-    /* Lúc này BOARD_PIN_BTN_... chắc chắn sẽ được lôi từ file board_esp_s3.h của bạn ra */
+    /* Define all 6 buttons: { gpio, active-low, short_key, long_key } */
     const struct { gpio_num_t pin; InputKey sk; InputKey lk; } cfg[NUM_BUTTONS] = {
         { BOARD_PIN_BTN_UP,    InputKeyUp,    InputKeyUp    },
         { BOARD_PIN_BTN_DOWN,  InputKeyDown,  InputKeyDown  },
@@ -155,7 +155,7 @@ void target_input_init(void) {
 
         ButtonState* b    = &buttons[i];
         b->gpio           = cfg[i].pin;
-        b->inverted       = true;   /* Các nút bấm nối chân GND (active-low) */
+        b->inverted       = true;   /* all buttons active-low */
         b->short_key      = cfg[i].sk;
         b->long_key       = cfg[i].lk;
         b->raw_pressed    = button_is_pressed(b);
@@ -166,7 +166,7 @@ void target_input_init(void) {
         b->last_repeat_at    = 0;
     }
 
-    FURI_LOG_I(TAG, "6-button input initialized from your custom .h file");
+    FURI_LOG_I(TAG, "6-button input initialized");
 }
 
 void target_input_poll(FuriPubSub* pubsub, uint32_t* sequence_counter) {
