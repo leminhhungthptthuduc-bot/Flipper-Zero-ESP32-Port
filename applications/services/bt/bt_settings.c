@@ -8,9 +8,9 @@
 
 #define TAG "BtSettings"
 
-#define BT_SETTINGS_PATH    INT_PATH(BT_SETTINGS_FILE_NAME)
+#define BT_SETTINGS_PATH     INT_PATH(BT_SETTINGS_FILE_NAME)
 #define BT_SETTINGS_VERSION (0)
-#define BT_SETTINGS_MAGIC   (0x19)
+#define BT_SETTINGS_MAGIC    (0x19)
 
 void bt_settings_load(BtSettings* bt_settings) {
     furi_assert(bt_settings);
@@ -21,9 +21,13 @@ void bt_settings_load(BtSettings* bt_settings) {
     if(!load_success) {
         FURI_LOG_W(TAG, "Failed to load settings, using defaults");
 
-        bt_settings->enabled = false;
+        bt_settings->enabled = true; // 1. Đổi thành true để kích hoạt mặc định lần đầu boot
         bt_settings_save(bt_settings);
     }
+
+    // === 2. ÉP BẬT LUÔN LUÔN KỂ CẢ KHI LOAD THÀNH CÔNG FILE CẤU HÌNH CŨ ===
+    bt_settings->enabled = true; 
+    // ===================================================================
 }
 
 void bt_settings_save(const BtSettings* bt_settings) {
